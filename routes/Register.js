@@ -13,10 +13,16 @@ const jwt = require("jsonwebtoken");
 router.post("/", async (req, res) => {
   const isUserRegisters = await Signupdetails.findOne({ email: req.body.email })
   if (isUserRegisters) {
-    res.status(206).send("Email is already registerd")
+    res.status(200).send({
+      success:false,
+      message:"Email already exist please login with existing email"
+    })
   }
   else if (!req.body.email) {
-    res.status(206).send("please provide email")
+    res.status(200).send({
+      success:false,
+      message:"Please provide email"
+    })
   }
   else if (!isUserRegisters) {
 
@@ -29,8 +35,10 @@ router.post("/", async (req, res) => {
     const token = jwt.sign({ email: signup.email, password: signup.password }, process.env.JWT_KEY)
     signup.save().then((result) => {
       console.log(result);
-      res.status(201).send("Account created successfully")
-      // res.json({ result, token });
+      res.status(201).send({
+        success:true,
+        message:"Account created successfully"
+      })
     });
 
   }
