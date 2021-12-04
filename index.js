@@ -8,7 +8,7 @@ const postRouter = require('./routes/Post')
 app.use(bodyParser.json())
 const cors = require('cors')
 app.use("/public", express.static("uploads"));
-
+const PORT = process.env.PORT || 3000;
 app.use(cors())
 app.use('/api/v1', postRouter)
 app.get('/', (req, res) => {
@@ -20,6 +20,6 @@ app.get('/', (req, res) => {
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log("connected to database")
 })
-app.listen(process.env.PORT, () => {
-    console.log(`app running on ${process.env.PORT}`)
+app.listen(PORT, () => {
+    console.log(`app running on ${PORT}`)
 })
