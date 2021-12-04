@@ -44,7 +44,7 @@ router.post('/createblog', (req, res) => {
         // like: req.body.like,
     })
     blogpost.save().then(() => {
-        res.status(200).send("Blog created successfully")
+        res.status(200).send("Blog creadted successfully")
     })
 
 })
