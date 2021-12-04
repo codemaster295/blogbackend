@@ -9,8 +9,11 @@ app.use(bodyParser.json())
 const cors = require('cors')
 app.use("/public", express.static("uploads"));
 const PORT = process.env.PORT || 3000;
+
+const  registerRouter = require('./routes/Register')
 app.use(cors())
 app.use('/api/v1', postRouter)
+app.use('/api/v1/register' , registerRouter)
 app.get('/', (req, res) => {
     res.send("mmo here")
 })
