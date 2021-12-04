@@ -13,10 +13,10 @@ const jwt = require("jsonwebtoken");
 router.post("/", async (req, res) => {
   const isUserRegisters = await Signupdetails.findOne({ email: req.body.email })
   if (isUserRegisters) {
-    res.status(401).send("Email is already registerd")
+    res.status(206).send("Email is already registerd")
   }
   else if (!req.body.email) {
-    res.status(401).send("please provide email")
+    res.status(206).send("please provide email")
   }
   else if (!isUserRegisters) {
 
