@@ -10,8 +10,7 @@ const signUpSchema = mongoose.Schema({
    posts: [
       { type: mongoose.Schema.Types.ObjectId, ref: 'Post' }
    ],
-   bio: String,
-   gender:String,
+
 })
 // signUpSchema.plugin(uniqueValidator)
 module.exports = mongoose.model('Signupdetails', signUpSchema)

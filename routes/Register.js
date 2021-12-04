@@ -13,10 +13,10 @@ const jwt = require("jsonwebtoken");
 router.post("/", async (req, res) => {
   const isUserRegisters = await Signupdetails.findOne({ email: req.body.email })
   if (isUserRegisters) {
-    res.status(400).send("Email is already registerd")
+    res.status(401).send("Email is already registerd")
   }
   else if (!req.body.email) {
-    res.status(400).send("please provide email")
+    res.status(401).send("please provide email")
   }
   else if (!isUserRegisters) {
 
@@ -25,12 +25,11 @@ router.post("/", async (req, res) => {
       email: req.body.email,
       posts: req.body.posts,
       password: bcrypt.hashSync(req.body.password, 10),
-      gender: req.body.gender,
     });
     const token = jwt.sign({ email: signup.email, password: signup.password }, process.env.JWT_KEY)
     signup.save().then((result) => {
       console.log(result);
-      res.status(200).send("true")
+      res.status(201).send("Account created successfully")
       // res.json({ result, token });
     });
 
