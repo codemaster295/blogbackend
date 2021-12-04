@@ -34,7 +34,7 @@ const upload = multer({
 router.post('/createblog/uploadimage', upload, (req, res) => {
     console.log("came")
     console.log(req.file.filename)
-    res.status(200).send({ image: `http://localhost:${process.env.PORT}/public/${req.file.filename}` })
+    res.status(200).send({ image: `${process.env.BASE_URL}/public/${req.file.filename}` })
 })
 router.post('/createblog', (req, res) => {
     let blogpost = new blogModel({
