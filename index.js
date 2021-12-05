@@ -9,17 +9,18 @@ app.use(bodyParser.json())
 const cors = require('cors')
 app.use("/public", express.static("uploads"));
 const PORT = process.env.PORT || 3000;
-
+const Auth = require('./routes/Auth')
 const  registerRouter = require('./routes/Register')
 const loginRouter = require('./routes/Login')
 const searchRouter = require('./routes/SearchData')
 
 app.use(cors())
-app.use('/api/v1', postRouter)
-app.use('/api/v1/register' , registerRouter)
-app.use('/api/v1/login' , loginRouter)
-app.use('/api/v1/searchdata' , searchRouter)
-app.get('/', (req, res) => {
+
+app.use('/api/v1',Auth, postRouter)
+app.use('/api/v1/register' , Auth,registerRouter)
+app.use('/api/v1/login' ,Auth, loginRouter)
+app.use('/api/v1/searchdata' ,Auth, searchRouter)
+app.get('/',Auth, (req, res) => {
     res.send("mmo here")
 })
 
