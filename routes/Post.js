@@ -38,9 +38,10 @@ router.post('/createblog/uploadimage', upload, (req, res) => {
 })
 router.post('/createblog', (req, res) => {
     let blogpost = new blogModel({
-        author: req.body.blogTitle,
+        author: req.body.title,
+        title:req.body.title,
         image: req.body.image,
-        text: req.body.blogDescription,
+        text: req.body.description,
         // like: req.body.like,
     })
     blogpost.save().then(() => {
