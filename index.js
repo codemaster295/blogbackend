@@ -11,9 +11,11 @@ app.use("/public", express.static("uploads"));
 const PORT = process.env.PORT || 3000;
 
 const  registerRouter = require('./routes/Register')
+const loginRouter = require('./routes/Login')
 app.use(cors())
 app.use('/api/v1', postRouter)
 app.use('/api/v1/register' , registerRouter)
+app.user('/api/v1/login' , )
 app.get('/', (req, res) => {
     res.send("mmo here")
 })
