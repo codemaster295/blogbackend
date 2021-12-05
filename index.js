@@ -16,7 +16,7 @@ const loginRouter = require('./routes/Login')
 app.use(cors())
 app.use('/api/v1', postRouter)
 app.use('/api/v1/register' , registerRouter)
-app.use('/api/v1/login' , )
+app.use('/api/v1/login' , loginRouter)
 app.get('/', (req, res) => {
     res.send("mmo here")
 })
