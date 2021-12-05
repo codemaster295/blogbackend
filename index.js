@@ -17,8 +17,8 @@ const searchRouter = require('./routes/SearchData')
 app.use(cors())
 
 app.use('/api/v1',Auth, postRouter)
-app.use('/api/v1/register' , Auth,registerRouter)
-app.use('/api/v1/login' ,Auth, loginRouter)
+app.use('/api/v1/register' ,registerRouter)
+app.use('/api/v1/login' , loginRouter)
 app.use('/api/v1/searchdata' ,Auth, searchRouter)
 app.get('/',Auth, (req, res) => {
     res.send("mmo here")
