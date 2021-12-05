@@ -7,6 +7,14 @@ var multer = require('multer')
 const path = require("path");
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
+const firebaseAdmin = require('firebase-admin');
+const { v4: uuidv4 } = require('uuid');
+
+const serviceAccount = require('../firebase.json');
+const admin = firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.cert(serviceAccount),
+});
+const storageRef = admin.storage().bucket(`gs://facebookreact-d5338.appspot.com`);
 
 const Storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -25,21 +33,38 @@ const upload = multer({
             req.fileValidationError = "Only JPG OR PNG allowed!";
             return cb("Only .png and .jpg are allowed! ", false);
         }
+        else if (file.size >= 10 * 1024 * 1024) {
+            req.fileValidationError = "file size should be 10mb"
+            return cb("file size should be 10mb", false);
+        }
         cb(null, true);
     },
 }).single("image");
 
 
 
-router.post('/createblog/uploadimage', upload, (req, res) => {
-    console.log("came")
-    console.log(req.file.filename)
-    res.status(200).send({ image: `${process.env.BASE_URL}/public/${req.file.filename}` })
+router.post('/createblog/uploadimage', async (req, res) => {
+    upload(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            res.send(err)
+        } else if (err) {
+            res.send(err)
+        }
+        const filedata = await storageRef.upload(req.file.path, {
+            public: true,
+            destination: `blogmmo/${req.file.filename}`,
+            metadata: {
+                firebaseStorageDownloadTokens: uuidv4(),
+            }
+        });
+        res.status(200).send({ image: filedata[0].metadata.mediaLink })
+    })
+
 })
 router.post('/createblog', (req, res) => {
     let blogpost = new blogModel({
         author: req.body.title,
-        title:req.body.title,
+        title: req.body.title,
         image: req.body.image,
         text: req.body.description,
         // like: req.body.like,
