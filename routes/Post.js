@@ -50,6 +50,8 @@ router.post('/createblog/uploadimage', async (req, res) => {
         } else if (err) {
             res.send(err)
         }
+        else{
+        
         const filedata = await storageRef.upload(req.file.path, {
             public: true,
             destination: `blogmmo/${req.file.filename}`,
@@ -58,7 +60,8 @@ router.post('/createblog/uploadimage', async (req, res) => {
             }
         });
         res.status(200).send({ image: filedata[0].metadata.mediaLink })
-    })
+        }
+        })
 
 })
 router.post('/createblog', (req, res) => {
