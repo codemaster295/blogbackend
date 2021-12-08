@@ -77,3 +77,10 @@ router.post('/createblog', (req, res) => {
     })
 
 })
+router.get('/bannerproducts' , async(req,res)=>{
+const dataBanner = await blogModel.find({})
+
+res.status(200).send({
+data:dataBanner
+})
+})
