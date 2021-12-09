@@ -12,7 +12,7 @@ require('dotenv/config')
 router.post("/", async (req, res) => {
     try {
       const { email, password } = req.body;
-      const UserData = await loginData.findOne({ email:email }).project({ _id: 0,password:0 });
+      const UserData = await loginData.findOne({ email:email },{_id: 0})
       if (UserData && (await bcrypt.compare(password, UserData.password))) {
         // Create token
         const token = jwt.sign({ user_id: UserData._id, email }, process.env.JWT_KEY);  
