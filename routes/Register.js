@@ -34,7 +34,6 @@ router.post("/", async (req, res) => {
     });
     const token = jwt.sign({ email: signup.email, password: signup.password }, process.env.JWT_KEY)
     signup.save().then((result) => {
-      console.log(result);
       res.status(201).send({
         success:true,
         message:"Account created successfully"

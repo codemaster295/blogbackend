@@ -39,11 +39,10 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstname , lastname, email, password ,birthdate,gender} = req.body;
 
   // Simple validation
-  if (!name || !email || !password) {
-    console.log("came here");
+  if (!firstname ||!lastname  || !email || !password ||!birthdate || !gender) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
@@ -58,11 +57,12 @@ router.post("/register", async (req, res) => {
     if (!hash) throw Error("Something went wrong hashing the password");
 
     const newUser = new User({
-      name,
+      name:firstname +   lastname,
       email,
       password: hash,
+      birthdate:birthdate,
+      gender
     });
-
     const savedUser = await newUser.save();
     if (!savedUser) throw Error("Something went wrong saving the user");
 

@@ -19,6 +19,12 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  gender:{
+    type:String
+  },
+  birthdate:{
+    type:String
+  }
 });
 
 // const User = model("user", UserSchema);
