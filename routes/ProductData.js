@@ -23,8 +23,8 @@ router.get("/getproduct/:id", async (req, res) => {
     res.json(data)
   })
 })
-router.get("/getproduct/all", async (req, res) => {
-  Product.find({}).then((data) => {
+router.get("/getproducts/all", async (req, res) => {
+  Product.find().then((data) => {
     res.status(200).send(data)
   })
 })
