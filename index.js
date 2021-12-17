@@ -13,7 +13,7 @@ const Auth = require("./routes/Auth");
 const registerRouter = require("./routes/Register");
 const loginRouter = require("./routes/Login");
 const searchRouter = require("./routes/SearchData");
-
+const productRouter = require('./routes/ProductData')
 app.use(cors());
 const http = require("http");
 const server = http.createServer(app);
@@ -27,6 +27,7 @@ const io = new Server(server);
 app.use("/api/v1/post", postRouter);
 app.use("/api/v1/searchdata", searchRouter);
 app.use("/api/v1/auth", loginRouter);
+app.use("/api/v1/product", Auth, productRouter)
 
 app.get("/", (req, res) => {
   res.send("mmo here");

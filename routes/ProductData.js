@@ -6,18 +6,25 @@ module.exports = router;
 const bodyParser = require("body-parser");
 const encoder = bodyParser.urlencoded();
 const jwt = require("jsonwebtoken");
+const Product = require('../models/Product')
 
-router.post("/", async (req, res) => {
-  var wordSplited = req.body.search.split(/\s+/);
-  var regToMatch = new RegExp(wordSplited.join("|"));
-  const BlogData = await blogData.find(
-    { title: { $regex: regToMatch, $options: "i" } },
-    { _id: 0 }
-  );
 
-  res.status(200).send({
-    success: true,
-    message: BlogData.length,
-    data: BlogData,
-  });
+router.post("/add", async (req, res) => {
+  const { Name, Category, Description, Price, Discount, Images, General, Dial, Case, Band, AdditionInformation } = req.body
+  let product = new Product({
+    Name, Category, Description, Price, Discount, Images, General, Dial, Case, Band, AdditionInformation
+  })
+  console.log(Images)
+  let Response = await product.save()
+  res.status(200).send(Response)
 });
+router.get("/getproduct/:id", async (req, res) => {
+  Product.findById(req.params.id).then((data) => {
+    res.json(data)
+  })
+})
+router.get("/getproduct/all", async (req, res) => {
+  Product.find({}).then((data) => {
+    res.status(200).send(data)
+  })
+})
