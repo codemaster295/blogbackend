@@ -29,7 +29,7 @@ app.use("/api/v1/post", postRouter);
 app.use("/api/v1/searchdata", searchRouter);
 app.use("/api/v1/auth", loginRouter);
 app.use("/api/v1/product", Auth, productRouter)
-app.use("api/v1/getproducts" , allProductRouter)
+app.use("/api/v1/getproducts" , allProductRouter)
 
 app.get("/", (req, res) => {
   res.send("mmo here");
